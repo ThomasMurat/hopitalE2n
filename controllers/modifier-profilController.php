@@ -25,7 +25,7 @@ if(isset($_POST['modify'])){
         //si une valeur existe, verifier qu'elle soit en accord avec la regexp
         if (filter_var($_POST['lastname'], FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => $regexpName)))) {
             //si tout est ok, stocker la valeur dans dans une variable
-            $patient->lastName = htmlspecialchars($_POST['lastname']);
+            $patient->lastname = htmlspecialchars($_POST['lastname']);
         //si une valeur existe mais qu'elle est non conforme a la regexp, afficher le message d'erreur suivant : 
         }else {
             $formErrors['lastname'] = 'Votre Nom n\'est pas valide.';
@@ -38,7 +38,7 @@ if(isset($_POST['modify'])){
         //si une valeur existe, verifier qu'elle soit en accord avec la regexp
         if (filter_var($_POST['firstname'], FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => $regexpName)))) {
             //si tout est ok, stocker la valeur dans dans une variable
-            $patient->firstName = htmlspecialchars($_POST['firstname']);
+            $patient->firstname = htmlspecialchars($_POST['firstname']);
         //si une valeur existe mais qu'elle est non conforme a la regexp, afficher le message d'erreur suivant : 
         }else {
             $formErrors['firstname'] = 'Votre Prénom n\'est pas valide.';
@@ -54,7 +54,7 @@ if(isset($_POST['modify'])){
             $patient->phoneNumber = htmlspecialchars($_POST['phone']);
         //si une valeur existe mais qu'elle est non conforme a la regexp, afficher le message d'erreur suivant : 
         }else if(empty($_POST['phone'])) {
-            $patient->phoneNumber = NULL;
+            $patient->phone = NULL;
         }else {
             $formErrors['phone'] = 'Votre numéro de telephone n\'est pas valide.';
         }

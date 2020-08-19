@@ -1,9 +1,11 @@
 <?php
-include_once 'models/patients.php';
-include 'controllers/modifier-profilController.php' ?>
-<div class="content" id="ajout-patient"><?php
+include 'header.php';
+include_once '../models/patients.php';
+include '../controllers/modifier-profilController.php'; 
+?>
+<div class="content" id="modifier-profil"><?php
     if(isset($patientInfo)){ ?>
-    <form class="offset-4 col-4" action="index.php?content=modifier-profil&id=<?= $patient->id ?>" method="POST">
+    <form class="offset-4 col-4" action="modifier-profil.php?&id=<?= $patient->id ?>" method="POST">
         <div class="form-group">
             <label for="lastname">Nom :</label>
             <input id="lastname" class="form-control <?= count($formErrors) > 0 ? (isset($formErrors['lastname']) ? 'is-invalid' : 'is-valid') : '' ?>" value="<?= isset($_POST['lastname']) ? $_POST['lastname'] : $patientInfo->lastname ?>" type="text" name="lastname" />
@@ -41,3 +43,4 @@ include 'controllers/modifier-profilController.php' ?>
         } ?>
     </form>
 </div>
+<?php include 'footer.php';

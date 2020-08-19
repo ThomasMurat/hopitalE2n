@@ -1,8 +1,10 @@
 <?php
-include_once 'models/patients.php';
-include 'controllers/ajout-patientController.php' ?>
+include 'header.php';
+include_once '../models/patients.php';
+include '../controllers/ajout-patientController.php'; 
+?>
 <div class="content" id="ajout-patient">
-    <form class="offset-4 col-4" action="index.php?content=ajout-patient" method="POST">
+    <form class="offset-4 col-4" action="ajout-patient.php" method="POST">
         <div class="form-group">
             <label for="lastname">Nom :</label>
             <input id="lastname" class="form-control <?= count($formErrors) > 0 ? (isset($formErrors['lastname']) ? 'is-invalid' : 'is-valid') : '' ?>" value="<?= isset($_POST['lastname']) ? $_POST['lastname'] : '' ?>" type="text" name="lastname" />
@@ -37,3 +39,4 @@ include 'controllers/ajout-patientController.php' ?>
         <p class="formOk"><?= isset($addPatientMessage) ? $addPatientMessage : '' ?></p>
     </form>
 </div>
+<?php include 'footer.php';

@@ -1,6 +1,8 @@
 <?php
-include_once 'models/patients.php';
-include 'controllers/profil-patientController.php'; ?>
+include 'header.php';
+include_once '../models/patients.php';
+include '../controllers/profil-patientController.php'; 
+ ?>
 <!-- Card -->
 <div class="card">
 
@@ -17,10 +19,11 @@ include 'controllers/profil-patientController.php'; ?>
         <p class="card-text">Numero de téléphone : <?= $patientInfo->phone ?></p>
         <p class="card-text">Adresse mail : <?= $patientInfo->mail ?></p><?php
     }else { ?>
-     <p class="card-text"><?= 'message' ?></p><?php
+     <p class="card-text"><?= $message ?></p><?php
     } ?>
-    <button><a href="index.php?content=modifier-profil&id=<?= $patient->id ?>">Modifier le profile</a></button>
+    <button><a href="modifier-profil.php?&id=<?= $patient->id ?>">Modifier le profile</a></button>
   </div>
 
 </div>
 <!-- Card -->
+<?php include 'footer.php';

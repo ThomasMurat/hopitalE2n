@@ -1,9 +1,11 @@
 <?php 
-include_once 'models/appointments.php';
-include_once 'models/patients.php';
-include 'controllers/ajout-rendezvousController.php'; ?>
+include 'header.php';
+include_once '../models/appointments.php';
+include_once '../models/patients.php';
+include '../controllers/ajout-rendezvousController.php'; 
+?>
 <div class="content" id="ajout-patient">
-    <form class="offset-4 col-4" action="index.php?content=ajout-rendezvous" method="POST">
+    <form class="offset-4 col-4" action="ajout-rendezvous.php" method="POST">
         <div class="form-group">
             <label for="patient">Patient :</label>
             <select id="patient" name="patient">
@@ -33,3 +35,4 @@ include 'controllers/ajout-rendezvousController.php'; ?>
         <p class="formOk"><?= isset($message) ? $message : '' ?></p>
     </form>
 </div>
+<?php include 'footer.php';

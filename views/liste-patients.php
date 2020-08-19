@@ -1,6 +1,8 @@
 <?php 
-include_once 'models/patients.php';
-include 'controllers/liste-patientsController.php'; ?>
+include 'header.php';
+include_once '../models/patients.php';
+include '../controllers/liste-patientsController.php'; 
+?>
 
    
 <!-- Start your project here-->
@@ -21,8 +23,9 @@ include 'controllers/liste-patientsController.php'; ?>
            <td><?= $patientDetails->firstname ?></td>
            <td><?= $patientDetails->birthDateFr ?></td>
            <td><?= $patientDetails->mail ?></td>
-           <td><button type="button" class="btn btn-primary"><a class="text-white" href="index.php?content=profil-patient&id=<?= $patientDetails->id ?>">Voir le profil</a></button></td>
+           <td><button type="button" class="btn btn-primary"><a class="text-white" href="profil-patient.php?&id=<?= $patientDetails->id ?>">Voir le profil</a></button></td>
        </tr><?php
     } ?>
    </tbody>
 </table>
+<?php include 'footer.php';

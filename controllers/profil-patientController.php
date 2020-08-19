@@ -1,6 +1,10 @@
 <?php
 if(isset($_GET['id'])){
     $patient = new patients();
-    $patient->id = $_GET['id'];
-    $patientInfo = $patient->getProfilPatient();   
+    $patient->id = htmlspecialchars($_GET['id']);
+    if($patient->checkIdPatientExist()){
+        $patientInfo = $patient->getProfilPatient(); 
+    }else {
+        $message = 'Une erreur s\'est produite';
+    }
 }

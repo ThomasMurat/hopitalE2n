@@ -16,9 +16,10 @@ class appointments{
         $checkAppointmentExistQuery = $this->db->prepare(
             'SELECT COUNT(`id`) AS `isAppointmentExist`
             FROM `appointments`
-            WHERE `dateHour` = :dateHour'
+            WHERE `dateHour` = :dateHour AND `idPatients` = :idPatients'
         ); 
         $checkAppointmentExistQuery->bindValue(':dateHour', $this->dateHour, PDO::PARAM_STR);
+        $checkAppointmentExistQuery->bindValue(':idPatients', $this->idPatients, PDO::PARAM_INT);
         $checkAppointmentExistQuery->execute();
         //stocker l'objet dans la variable data
         $data = $checkAppointmentExistQuery->fetch(PDO::FETCH_OBJ);
@@ -49,7 +50,7 @@ class appointments{
     }
     public function getAppointmentList(){
         $appointmentListQuery = $this->db->query(
-            'SELECT `appointments`.`id`, `firstname`, `lastname`, `dateHour`
+            'SELECT `appointments`.`id`, `firstname`, `lastname`, DATE_FORMAT(`dateHour`, \'%d-%m-%Y\') AS `dateFr`, DATE_FORMAT(`dateHour`, \'%kh%i\') AS `hour`
             FROM `appointments`
             INNER JOIN `patients` ON `idPatients` = `patients`.`id`'
         );
@@ -57,7 +58,7 @@ class appointments{
     }
     public function getAppointmentInfo(){
         $appointmentInfoQuery = $this->db->prepare(
-            'SELECT `firstname`, `lastname`, `phone`, `mail`, `dateHour`
+            'SELECT `idPatients`, `firstname`, `lastname`, `phone`, `mail`,DATE_FORMAT(`dateHour`, \'%d-%m-%Y\') AS `dateFr`, DATE_FORMAT(`dateHour`, \'%Y-%m-%d\') AS `date`, DATE_FORMAT(`dateHour`, \'%kh%i\') AS `hour`
             FROM `appointments`
             INNER JOIN `patients` ON `idPatients` = `patients`.`id`
             WHERE `appointments`.`id` = :id'
@@ -73,6 +74,8 @@ class appointments{
             WHERE `id` = :id'
         );
         $updateAppointmentQuery->bindValue(':id', $this->id, PDO::PARAM_INT);
+        $updateAppointmentQuery->bindValue(':dateHour', $this->dateHour, PDO::PARAM_STR);
+        $updateAppointmentQuery->bindValue(':idPatients', $this->idPatients, PDO::PARAM_INT);
         return $updateAppointmentQuery->execute();
     }
 }
