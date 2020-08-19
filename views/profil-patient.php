@@ -17,7 +17,7 @@ include 'controllers/profil-patientController.php'; ?>
         <p class="card-text">Numero de téléphone : <?= $patientInfo->phone ?></p>
         <p class="card-text">Adresse mail : <?= $patientInfo->mail ?></p><?php
     }else { ?>
-     <p class="card-text"><?= $message ?></p><?php
+     <p class="card-text"><?= 'message' ?></p><?php
     } ?>
     <button><a href="index.php?content=modifier-profil&id=<?= $patient->id ?>">Modifier le profile</a></button>
   </div>

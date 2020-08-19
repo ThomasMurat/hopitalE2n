@@ -34,6 +34,18 @@ class patients
         $addPatientSameQuery->execute();
         $data = $addPatientSameQuery->fetch(PDO::FETCH_OBJ);
         return $data->isPatientExist; 
+    }
+    public function checkIdPatientExist()
+    {
+        $checkIdPatientExistQuery = $this->db->prepare(
+            'SELECT COUNT(`id`) AS `isIdPatientExist`
+            FROM `patients` 
+            WHERE `id` = :id'
+        );
+        $checkIdPatientExistQuery->bindvalue(':id', $this->id, PDO::PARAM_INT);
+        $checkIdPatientExistQuery->execute();
+        $data = $checkIdPatientExistQuery->fetch(PDO::FETCH_OBJ);
+        return $data->isIdPatientExist; 
     } 
     // j'ai essayer de retourner, mais je n'ai pas mis de valeur qui me permettrait de savoir si il y a une similitude ou non, elle me permettra de la récupérer et de l'utiliser
     public function addPatient()
@@ -69,8 +81,7 @@ class patients
         );
         $getProfilPatientQuery->bindValue(':id', $this->id, PDO::PARAM_INT);
         $getProfilPatientQuery->execute();
-        $data = $getProfilPatientQuery->fetch(PDO::FETCH_OBJ);
-        return $data;
+        return $getProfilPatientQuery->fetch(PDO::FETCH_OBJ);
     }
     public function modifyPatientInfo(){
         $modifyPatientInfoQuery = $this->db->prepare(

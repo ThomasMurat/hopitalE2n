@@ -28,7 +28,7 @@
             <!-- mettre foreach ici -->
                 <ul class="navbar-nav m-auto">
                     <?php foreach($pageList as $page => $pageName){ 
-                        if($page != 'profil-patient' && $page != 'rendezvous' && $page != 'modifier-profil') {?>
+                        if($page != 'profil-patient' && $page != 'rendezvous' && $page != 'modifier-profil' && $page != 'modifier-rendezvous') {?>
                         <li class="nav-item"><a class="nav-link" href="index.php?content=<?= $page ?>"><?= $pageName ?></a></li><?php 
                         }     
                     } ?>

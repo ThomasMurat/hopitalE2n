@@ -1,7 +1,7 @@
 <?php 
 include_once 'models/appointments.php';
 include_once 'models/patients.php';
-include 'controllers/ajout-rendezvousController.php'; ?>
+include 'controllers/modifier-rendezvousController.php'; ?>
 <div class="content" id="ajout-patient">
     <form class="offset-4 col-4" action="index.php?content=ajout-rendezvous" method="POST">
         <div class="form-group">

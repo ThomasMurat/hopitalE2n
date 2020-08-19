@@ -11,7 +11,8 @@ $pageList = array('Accueil' => 'accueil'
                 ,'ajout-patient-rendez-vous' => 'Ajouter un patient avec un rendez-vous'
                 ,'profil-patient' => 'Profil du patient'
                 ,'rendezvous' => 'Fiche rendez vous' 
-                ,'modifier-profil' => 'Modifier le profil');
+                ,'modifier-profil' => 'Modifier le profil'
+                ,'modifier-rendezvous' => 'Modifier le rendez-vous');
 
 //si la valeur content existe et que sa valeur est egale a une des clés associativent du tableau $pageList
 if(isset($_GET['content']) && (isset($pageList[$_GET['content']]))) {
