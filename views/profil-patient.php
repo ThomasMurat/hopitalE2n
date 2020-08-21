@@ -1,10 +1,11 @@
 <?php
 include 'header.php';
 include_once '../models/patients.php';
+include_once '../models/appointments.php';
 include '../controllers/profil-patientController.php'; 
  ?>
 <!-- Card -->
-<div class="card">
+<div class="card text-center">
 
   <!-- Card content -->
   <div class="card-body">
@@ -25,5 +26,21 @@ include '../controllers/profil-patientController.php';
   </div>
 
 </div>
-<!-- Card -->
+<table class="table table-striped text-center container">
+  <h4 class="text-center mt-5">Liste des rendez-vous</h4>
+   <thead>
+       <tr>
+           <th scope="col">Date du RDV :</th>
+           <th scope="col">Heure du RDV :</th>
+       </tr>
+   </thead>
+   <tbody><?php 
+    foreach($appointmentList as $appointment){ ?>
+       <tr>
+           <td><?= $appointment->dateFr ?></td>
+           <td><?= $appointment->hour ?></td>
+       </tr><?php
+    } ?>
+   </tbody>
+</table>
 <?php include 'footer.php';

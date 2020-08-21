@@ -56,6 +56,18 @@ class appointments{
         );
         return $appointmentListQuery->fetchAll(PDO::FETCH_OBJ);
     }
+    public function getAppointmentListById(){
+        $getAppointmentListByIdQuery = $this->db->prepare(
+            'SELECT `appointments`.`id`, DATE_FORMAT(`dateHour`, \'%d-%m-%Y\') AS `dateFr`, DATE_FORMAT(`dateHour`, \'%kh%i\') AS `hour`
+            FROM `appointments`
+            INNER JOIN `patients` ON `idPatients` = `patients`.`id`
+            WHERE `idPatients` = :idPatients
+            ORDER BY `dateFr` ASC, `hour` ASC'
+        );
+        $getAppointmentListByIdQuery->bindValue(':idPatients', $this->idPatients, PDO::PARAM_INT);
+        $getAppointmentListByIdQuery->execute();
+        return $getAppointmentListByIdQuery->fetchAll(PDO::FETCH_OBJ);
+    }
     public function getAppointmentInfo(){
         $appointmentInfoQuery = $this->db->prepare(
             'SELECT `idPatients`, `firstname`, `lastname`, `phone`, `mail`,DATE_FORMAT(`dateHour`, \'%d-%m-%Y\') AS `dateFr`, DATE_FORMAT(`dateHour`, \'%Y-%m-%d\') AS `date`, DATE_FORMAT(`dateHour`, \'%kh%i\') AS `hour`
@@ -77,5 +89,13 @@ class appointments{
         $updateAppointmentQuery->bindValue(':dateHour', $this->dateHour, PDO::PARAM_STR);
         $updateAppointmentQuery->bindValue(':idPatients', $this->idPatients, PDO::PARAM_INT);
         return $updateAppointmentQuery->execute();
+    }
+    public function deleteAppointment(){
+        $deleteAppointmentQuery = $this->db->prepare(
+            'DELETE FROM `appointments`
+            WHERE `id` = :id'
+        );
+        $deleteAppointmentQuery->bindValue(':id', $this->id, PDO::PARAM_INT);
+        return $deleteAppointmentQuery->execute();
     }
 }

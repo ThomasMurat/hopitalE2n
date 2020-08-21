@@ -3,8 +3,7 @@ include 'header.php';
 include_once '../models/appointments.php';
 include '../controllers/liste-rendezvousController.php'; 
 ?>
-
-   
+  
 <!-- Start your project here-->
 <table class="table table-striped text-center container">
    <thead>
@@ -23,8 +22,23 @@ include '../controllers/liste-rendezvousController.php';
            <td><?= $appointment->firstname ?></td>
            <td><?= $appointment->dateFr ?></td>
            <td><?= $appointment->hour ?></td>
-           <td><button type="button" class="btn btn-primary"><a class="text-white" href="rendezvous.php?&id=<?= $appointment->id ?>">Voir le RDV</a></button></td>
-       </tr><?php
+           <td>
+                <button type="button" class="btn btn-primary btn-sm"><a class="text-white" href="rendezvous.php?&id=<?= $appointment->id ?>">Voir le RDV</a></button>
+                <button type="button" class="btn btn-danger btn-sm"><a class="text-white" href="liste-rendezvous.php?&idDelete=<?= $appointment->id ?>">Supprimer</a></button>
+           </td>
+           
+        </tr><?php
+        if(isset($_GET['idDelete']) && $appointment->id == $_GET['idDelete']){ ?>
+            <div class="alert text-center alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h1 class="h4">Voulez-vous supprimer ce rendez-vous?</h1>
+                <form class="text-center" method="POST" action="liste-rendezvous.php">
+                    <input type="hidden" name="idDelete" value="<?= $appointments->id ?>" />
+                    <button type="submit" class="btn btn-primary btn-sm" name="confirmDelete">OUI</button>
+                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Non</button>
+                <form>
+            </div><?php
+        }
     } ?>
    </tbody>
 </table>
