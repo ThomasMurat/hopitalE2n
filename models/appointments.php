@@ -39,6 +39,19 @@ class appointments{
         //retourner l'attribut isAppointmentExist de type booléen (COUNT renvoie 0 ou 1 qui peut etre interpreté comme un booléen) 
         return $data->isAppointmentExist;
     }
+    public function checkAppointmentExistByIdPatients(){
+        $checkAppointmentExistByIdPatientsQuery = $this->db->prepare(
+            'SELECT COUNT(`id`) AS `isAppointmentExist`
+            FROM `appointments`
+            WHERE `idPatients` = :idPatients'
+        ); 
+        $checkAppointmentExistByIdPatientsQuery->bindValue(':idPatients', $this->idPatients, PDO::PARAM_INT);
+        $checkAppointmentExistByIdPatientsQuery->execute();
+        //stocker l'objet dans la variable data
+        $data = $checkAppointmentExistByIdPatientsQuery->fetch(PDO::FETCH_OBJ);
+        //retourner l'attribut isAppointmentExist de type booléen (COUNT renvoie 0 ou 1 qui peut etre interpreté comme un booléen) 
+        return $data->isAppointmentExist;
+    }
     public function addAppointment(){
         $addAppointmentQuery = $this->db->prepare(
             'INSERT INTO `appointments`(`idPatients`, `dateHour`)
@@ -97,5 +110,13 @@ class appointments{
         );
         $deleteAppointmentQuery->bindValue(':id', $this->id, PDO::PARAM_INT);
         return $deleteAppointmentQuery->execute();
+    }
+    public function deleteAppointmentByIdpatients(){
+        $deleteAppointmentByIdpatients = $this->db->prepare(
+            'DELETE FROM `appointments`
+            WHERE `idPatients` = :idPatients'
+        );
+        $deleteAppointmentByIdpatients->bindValue(':idPatients', $this->idPatients, PDO::PARAM_INT);
+        return $deleteAppointmentByIdpatients->execute();
     }
 }

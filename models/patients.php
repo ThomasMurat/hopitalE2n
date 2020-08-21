@@ -12,6 +12,8 @@ class patients
     public $phone = '';
     public $mail = '';
     private $db = NULL;
+    public $search = '';
+    public $resultNumber = 0;
     public function __construct()
     {
         try {
@@ -73,6 +75,17 @@ class patients
             ORDER BY `lastname` AND `firstname`');
         return $getPatientsListQuery->fetchAll(PDO::FETCH_OBJ);
     }
+    public function searchPatientsListByName() {
+        $searchPatientsListByNameQuery = $this->db->prepare(
+            'SELECT `id`, `lastname`, `firstname`, `mail`, DATE_FORMAT(`birthDate`, \'%d/%m/%Y\') AS `birthDateFr` 
+            FROM `patients`
+            WHERE `lastname` LIKE :search
+            ORDER BY `lastname` AND `firstname`');
+        $searchPatientsListByNameQuery->bindValue(':search', $this->search . '%', PDO::PARAM_STR);
+        $searchPatientsListByNameQuery->execute();
+        return $searchPatientsListByNameQuery->fetchAll(PDO::FETCH_OBJ);
+        
+    }
     public function getProfilPatient() {
         $getProfilPatientQuery = $this->db->prepare(
             'SELECT`lastname`, `firstname`, `mail`, `birthDate`, `phone`
@@ -97,4 +110,14 @@ class patients
         $modifyPatientInfoQuery->bindvalue(':mail', $this->mail, PDO::PARAM_STR);
         return $modifyPatientInfoQuery->execute();
     }
+    public function deletePatient() {
+        $deletePatientQuery = $this->db->prepare(
+            'DELETE FROM `patients`
+            WHERE `id` = :id'
+        );
+        $deletePatientQuery->bindValue(':id', $this->id, PDO::PARAM_INT);
+        return $deletePatientQuery->execute();
+    }
+
 }
+
