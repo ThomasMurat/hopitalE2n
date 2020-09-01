@@ -1,5 +1,6 @@
 <?php 
 include 'header.php';
+include '../models/dataBase.php';
 include_once '../models/appointments.php';
 include_once '../models/patients.php';
 include '../controllers/ajout-rendezvousController.php'; 

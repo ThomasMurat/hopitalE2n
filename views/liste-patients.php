@@ -5,17 +5,17 @@ include_once '../models/patients.php';
 include '../controllers/liste-patientsController.php'; 
 
 
-    if(isset($_GET['idDelete'])){ ?>
-        <div class="alert text-center alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h1 class="h4">Voulez-vous supprimer ce patient et ses rendez-vous?</h1>
-            <form class="text-center" method="POST" action="<?= $pageLink ?>">
-                <input type="hidden" name="idDelete" value="<?= $patients->id ?>" />
-                <button type="submit" class="btn btn-primary btn-sm" name="confirmDelete">OUI</button>
-                <button type="button" class="btn btn-danger btn-sm" data-dismiss="alert">Non</button>
-            </form>
-        </div><?php
-    } ?>
+if(isset($_GET['idDelete'])){ ?>
+    <div class="alert text-center alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h1 class="h4">Voulez-vous supprimer ce patient et ses rendez-vous?</h1>
+        <form class="text-center" method="POST" action="<?= $pageLink ?>">
+            <input type="hidden" name="idDelete" value="<?= $patients->id ?>" />
+            <button type="submit" class="btn btn-primary btn-sm" name="confirmDelete">OUI</button>
+            <button type="button" class="btn btn-danger btn-sm" data-dismiss="alert">Non</button>
+        </form>
+    </div><?php
+} ?>
 <form method="GET" action="liste-patients.php" class="form-inline justify-content-center">
     <input id="search" name="search" type="text" placeholder="rechercher un patient" />
     <button type="submit" class="btn btn-sm btn-primary" name="sendSearch">Rechercher</button>
@@ -38,14 +38,14 @@ if($patients->resultNumber == 0){ ?>
         for($i = 0 + $page ; $i < ($resultLimit + $page); $i++){ 
             if($i < $patients->resultNumber){ ?>
                 <tr>
-                        <td><?= $patientsList[$i]->lastname ?></td>
-                        <td><?= $patientsList[$i]->firstname ?></td>
-                        <td><?= $patientsList[$i]->birthDateFr ?></td>
-                        <td><?= $patientsList[$i]->mail ?></td>
-                        <td>
-                            <button type="button" class="btn btn-primary btn-sm"><a class="text-white" href="profil-patient.php?&id=<?= $patientsList[$i]->id ?>">Voir le profil</a></button>
-                            <button type="button" class="btn btn-danger btn-sm"><a class="text-white" href="<?= $pageLink ?>&idDelete=<?= $patientsList[$i]->id ?>">Supprimer</a></button>
-                        </td>
+                    <td><?= $patientsList[$i]->lastname ?></td>
+                    <td><?= $patientsList[$i]->firstname ?></td>
+                    <td><?= $patientsList[$i]->birthDateFr ?></td>
+                    <td><?= $patientsList[$i]->mail ?></td>
+                    <td>
+                        <button type="button" class="btn btn-primary btn-sm"><a class="text-white" href="profil-patient.php?&id=<?= $patientsList[$i]->id ?>">Voir le profil</a></button>
+                        <button type="button" class="btn btn-danger btn-sm"><a class="text-white" href="<?= $pageLink ?>&idDelete=<?= $patientsList[$i]->id ?>">Supprimer</a></button>
+                    </td>
                 </tr><?php
             }
         } ?>

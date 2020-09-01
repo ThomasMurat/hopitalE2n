@@ -14,14 +14,23 @@ class patients
     private $db = NULL;
     public $search = '';
     public $resultNumber = 0;
-    public function __construct()
-    {
-        try {
-            $this->db = new PDO('mysql:host=localhost;dbname=hospitale2n;charset=utf8', 'root', '');
-        } catch (Exception $error) {
-            die($error->getMessage());
-        }
+    public function __construct(){
+    //On recupére l'instance de PDO de la classe DataBase avec la méthode STATIC getInstance
+        $this->db = dataBase::getInstance();
     }
+    //methode issue de l'objet PDO de la classe dataBase et qui sont static
+        public function beginTransaction(){
+            return $this->db->beginTransaction();
+        }
+        public function rollBack(){
+            return $this->db->rollBack();
+        }
+        public function getLastInsertId(){
+            return $this->db->lastInsertId();
+        }
+        public function commit(){
+            return $this->db->commit();
+        }
     // was samePatient
     public function checkPatientExist()
     {
@@ -75,6 +84,18 @@ class patients
             ORDER BY `lastname` AND `firstname`');
         return $getPatientsListQuery->fetchAll(PDO::FETCH_OBJ);
     }
+    public function getPatientId() {
+        $getPatientId = $this->db->prepare(
+            'SELECT `id`
+            FROM `patients`
+            WHERE `lastname` = :lastname AND `firstname` = :firstname AND `mail` = :mail'
+            );
+        $getPatientId->bindvalue(':lastname', $this->lastname, PDO::PARAM_STR);
+        $getPatientId->bindvalue(':firstname', $this->firstname, PDO::PARAM_STR);
+        $getPatientId->bindvalue(':mail', $this->mail, PDO::PARAM_STR);
+        $getPatientId->execute();
+        return $getPatientId->fetch(PDO::FETCH_OBJ);
+    }
     public function searchPatientsListByName() {
         $searchPatientsListByNameQuery = $this->db->prepare(
             'SELECT `id`, `lastname`, `firstname`, `mail`, DATE_FORMAT(`birthDate`, \'%d/%m/%Y\') AS `birthDateFr` 
@@ -120,4 +141,3 @@ class patients
     }
 
 }
-

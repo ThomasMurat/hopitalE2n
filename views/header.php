@@ -30,7 +30,7 @@ $pageList = array('../index' => 'Accueil'
    </head>
    <body>
         <nav class="navbar navbar-expand-lg navbar-dark ">
-            <a class="navbar-brand" href="#"><img alt="logo chu" title="le logo du chu LA MANU" src="assets/img/logo.png" /></a>
+            <a class="navbar-brand" href="#"><img alt="logo chu" title="le logo du chu LA MANU" src="<?= ($_SERVER['REQUEST_URI'] == '/index.php') ? '' : '../'; ?>assets/img/logo.png" /></a>
             <button class="navbar-toggler btn-primary" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
